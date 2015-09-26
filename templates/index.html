@@ -1,0 +1,66 @@
+
+<html>
+	<head>	
+		
+		<title>Translation Party</title>	
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />		
+		
+
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+		<link href='{{ url_for("static", filename="css/screen.css") }}' rel='stylesheet' type='text/css'>
+	</head>
+	<body ontouchstart="">
+		<div id="party">
+			<noscript>
+				<h1>Translation Party</h1>
+				<p>Please enable Javascript to experience equilibrium.</p>
+			</noscript>
+		</div>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/mustache.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.transit.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/party.js') }}"></script>
+		
+		<script type="text/html" id="form_tpl">
+			<div class="flip_container">
+				<div class="flip_frame">
+					<div id="formBox" class="card front">
+						 <div class="card_inner">
+						 	<form action="JAVASCRIPT:void(0);" id="form">
+								<textarea class="phrase" type="text" placeholder="Start with an English phrase&hellip;"></textarea>
+								<input type="submit" name="submit" class="button margin_none" value="Find equilibrium" />
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="results"></div>
+		</script>
+		
+		{% raw %}
+		<script type="text/html" id="translation_tpl">
+			<div class="card"><div class="card_inner">
+				<p class="language">{{l}}</p>
+				<p>{{t}}</p>
+			</div></div>
+		</script>
+		
+		<script type="text/html" id="quip_tpl">
+			<div class="card inverted {{type}}"><div class="card_inner">
+				<h4>{{type_message}}</h4>
+				<p class="less">{{{quip}}}</p>
+			</div></div>
+		</script>
+		{% endraw %}
+		
+		<script type="text/javascript">
+			$(function(){
+				$('#party').html( $('#form_tpl').html() );	
+				var ph = new PartyHost( true );
+			});
+		</script>
+	</body>
+</html>
