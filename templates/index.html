@@ -1,11 +1,10 @@
-
+<!DOCTYPE html>
 <html>
 	<head>	
-		
-		<title>Translation Party</title>	
+		<title>Ascend to Euphoria</title>	
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />		
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />		
 		
 
 		<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
@@ -14,8 +13,8 @@
 	<body ontouchstart="">
 		<div id="party">
 			<noscript>
-				<h1>Translation Party</h1>
-				<p>Please enable Javascript to experience equilibrium.</p>
+				<h1>Ascend to Euphoria</h1>
+				<p>Please enable Javascript to experience euphoria.</p>
 			</noscript>
 		</div>
 
@@ -30,14 +29,15 @@
 					<div id="formBox" class="card front">
 						 <div class="card_inner">
 						 	<form action="JAVASCRIPT:void(0);" id="form">
-								<textarea class="phrase" type="text" placeholder="Start with an English phrase&hellip;"></textarea>
-								<input type="submit" name="submit" class="button margin_none" value="Find equilibrium" />
+								<textarea class="phrase" style="resize: vertical;" type="text" placeholder="Start with an English phrase&hellip;">{{ phrase }}</textarea>
+								<input type="submit" name="submit" class="button margin_none" value="Acquire euphoria" />
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="results"></div>
+			<a id="bottom" href="#bottom"></a>
 		</script>
 		
 		{% raw %}
@@ -61,6 +61,10 @@
 				$('#party').html( $('#form_tpl').html() );	
 				var ph = new PartyHost( true );
 			});
+		</script>
+
+		<script type="text/javascript">
+			var initPhrase = "{{ phrase }}";
 		</script>
 	</body>
 </html>

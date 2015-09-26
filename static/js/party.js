@@ -11,27 +11,23 @@ function Party() {
 
 Party.prototype = {
 	
-	quip_types: [{
-		'type': 'uppercase',
-		'match': /^[A-Z\s.\?\!]+$/,
-		'quips': ["But it's not nice to shout.", "Ayy lmao"]
-	}, {
-		'type': 'dirty',
-		'match': /(fuck|shit|ass|tit|bitch|screw|dick|pussy|nuts|balls)/i,
-		'quips': ["Would you talk to your mouth with that mother.", "Ayy lmao"]
-	}, {
-		'type': 'meme',
-		'match': /(all your base|i can ha[sz]+|never gonna|all the)/i,
-		'quips': ["You're sure are up on your Internet jokes!", "That Internet joke is funny in any language!"]
-	}, {
-		'type': 'tp',
-		'match': /(translation|party|who made|who built|\bwill\b|carlough|rick|richard|boenigk)/i,
-		'quips': ["Translation Party was made by Will Carlough and Richard Boenigk. Send us an email at <a href='mailto: translationparty@gmail.com'>translationparty@gmail.com</a>"]
-	}, {
-		'type': 'multipurpose',
-		'match': /.*/,
-		'quips': ["This is a real translation party!", "You should move to Japan!", "You've done this before, haven't you.", "Okay, I get it, you like Translation Party.", "That's deep, man.", "Come on, you can do better than that.", "That didn't even make that much sense in English.", "Translation Party is hiring, you know."]
-	}],
+	quip_types: [
+		{
+			'type': 'uppercase',
+			'match': /^[A-Z\s.\?\!]+$/,
+			'quips': ["But it's not nice to shout.", "Ayy lmao"]
+		}, 
+		{
+			'type': 'dirty',
+			'match': /(fuck|shit|ass|tit|bitch|screw|dick|pussy|nuts|balls)/i,
+			'quips': ["Would you talk to your mouth with that mother.", "Ayy lmao"]
+		},
+		{
+			'type': 'multipurpose',
+			'match': /.*/,
+			'quips': ["You've done this before, haven't you.", "If you know what I mean", "That's deep", "Bottom text", "Ayy lmao"]
+		}
+	],
 
 
 	// translating side
@@ -82,6 +78,7 @@ Party.prototype = {
 			$card.transition({
 				y: 0
 			}, 200, function() {
+				$("html, body").animate({ scrollTop: $(document).height() }, "slow");
 				callback();
 			});
 		}, 0);
@@ -108,18 +105,18 @@ Party.prototype = {
 
 				var quip, type;
 				if (this.party_status == 'limit') {
-					quip = 'it is unlikely that this phrase will ever reach equilibrium';
+					quip = 'it is unlikely that this phrase will ever reach euphoria';
 					type = 'abject_failure';
-					type_message = "Party is busted";
+					type_message = "RIP";
 					
 				} else {
-					// it hit equilibrium then
+					// it hit euphoria then
 					this.$results.find('.card:nth-last-child(-n+3)').css({
 						background: 'lightgreen'
 					});
 					quip = this.get_quip(this.phrase_queue[0].string); // quip based on original input
 					type = 'success';
-					type_message = "Equilibrium found!";
+					type_message = "Euphoria acquired!";
 				}
 
 				var $t = $(Mustache.render(this.quip_tpl, {
@@ -192,8 +189,8 @@ Party.prototype = {
 	// what next?
 	check_party_progress: function() {
 		if (this.phrase_queue.length > 3 && this.phrase_queue[this.phrase_queue.length - 1].lang == 'en' && this.phrase_queue[this.phrase_queue.length - 1].string == this.phrase_queue[this.phrase_queue.length - 3].string) {
-			// reached equilibrium
-			this.party_status = 'equilibrium';
+			// reached euphoria
+			this.party_status = 'euphoria';
 		} else if (this.phrase_queue.length == PHRASE_LIMIT) {
 			// hit the limit
 			this.party_status = 'limit';
@@ -267,9 +264,15 @@ PartyHost.prototype = {
 		var self = this;
 		this.$form.submit(function(){
 			var val = self.$form.find('.phrase').val();
-			if(val.length > 0){
+			if (val.length > 140){
+				alert("Please limit the number of characters to 140. I would not like to use up the API quota immediately.");
+			}
+			else if (val.length > 0){
 				self.start_party(val);		
 			}
 		});
+		if (initPhrase !== ""){
+			this.$form.submit();
+		}
 	}
 };

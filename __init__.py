@@ -12,7 +12,11 @@ import translate
 # Root directory
 @app.route('/')
 def index_route():
-	return render_template("index.html")
+	phrase = request.args.get("q")
+	if not phrase:
+		return render_template("index.html", phrase="")
+
+	return render_template("index.html", phrase=phrase)
 
 @app.route("/translate")
 def translate_route():
